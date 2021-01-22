@@ -1,15 +1,16 @@
 package rollinglog
 
 import (
+	"github.com/mmszhezhi/rollinglog"
 	"github.com/sirupsen/logrus"
 	easy "github.com/t-tomalak/logrus-easy-formatter"
-	"logfile/rlog"
+
 	"path/filepath"
 )
 var Logger *logrus.Logger
 
 func Init(levels []logrus.Level) {
-	hook, err := rlog.NewTimeBasedRollingFileHook("ff",
+	hook, err := rollinglog.NewTimeBasedRollingFileHook("ff",
 		levels,
 		&easy.Formatter{
 			TimestampFormat: "2006-01-02 15:04:05",
