@@ -9,14 +9,21 @@ import (
 )
 var Logger *logrus.Logger
 
-func Init(levels []logrus.Level) {
+func Init(format string,path string) {
+	levels := []logrus.Level{logrus.InfoLevel,logrus.ErrorLevel,logrus.WarnLevel,logrus.FatalLevel,logrus.PanicLevel}
+	if(path==""){
+		path = "."
+	}
+	if(format==""){
+		format = "%time% - %lvl%: %msg% \n"
+	}
 	hook, err := rollinglog.NewTimeBasedRollingFileHook("ff",
 		levels,
 		&easy.Formatter{
 			TimestampFormat: "2006-01-02 15:04:05",
-			LogFormat:       "%time% - %lvl%: %msg% \n",
+			LogFormat:       format,
 		},
-		filepath.Join(".","%Y-%m-%d-%H.log"))
+		filepath.Join(path,"%Y-%m-%d-%H.log"))
 
 	if err != nil {
 		panic(err)
@@ -26,7 +33,7 @@ func Init(levels []logrus.Level) {
 	Logger.Hooks.Add(hook)
 	Logger.SetFormatter(&easy.Formatter{
 		TimestampFormat: "2006-01-02 15:04:05",
-		LogFormat:       "%time% - %lvl%: %msg% \n",
+		LogFormat:       format,
 	})
 
 }

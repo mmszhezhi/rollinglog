@@ -285,7 +285,6 @@ func (hook *TimeBasedRollingFileHook) Levels() []logrus.Level {
 }
 
 func (hook *TimeBasedRollingFileHook) Fire(entry *logrus.Entry) error {
-	fmt.Println("add" + entry.Message)
 	hook.queue <- entry
 
 	return nil

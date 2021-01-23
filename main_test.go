@@ -1,14 +1,15 @@
 package rollinglog
 
 import (
-	"github.com/sirupsen/logrus"
 	"testing"
+	"time"
 )
 
 func TestInit(t *testing.T) {
-
-	Init([]logrus.Level{logrus.InfoLevel,logrus.ErrorLevel,logrus.WarnLevel})
-	Logger.Info("fuckyou")
-	Logger.Warn("fuck warning")
+	path := "."
+	Init("",path)
+	Logger.Info("info")
+	Logger.Warn("warning")
+	time.Sleep(time.Second)
 
 }
